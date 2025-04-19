@@ -62,7 +62,7 @@ const LoadingScreen = () => {
         className="mt-8 text-center"
       >
         <h2 className="text-2xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
-          DevPortfolio
+          Prasannaa's Portfolio
         </h2>
         <p className="text-gray-600 dark:text-gray-300">
           Loading amazing projects...
