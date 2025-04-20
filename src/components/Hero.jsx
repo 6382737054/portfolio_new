@@ -52,7 +52,7 @@ export default function UltraPremiumHero() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
   
-  // Premium particle background
+  // Premium particle background - ENHANCED FOR VISIBILITY
   useEffect(() => {
     if (!canvasRef.current) return;
     
@@ -68,16 +68,16 @@ export default function UltraPremiumHero() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     
-    // Create luxury particle system
-    const particlesCount = isMobile ? 1200 : 3000;
+    // Create luxury particle system - INCREASED COUNT FOR VISIBILITY
+    const particlesCount = isMobile ? 2000 : 5000; // Increased particle count
     const particlesGeometry = new THREE.BufferGeometry();
     const posArray = new Float32Array(particlesCount * 3);
     const scaleArray = new Float32Array(particlesCount);
     
-    // Create two-tone particle system
+    // Create two-tone particle system with LARGER DISTRIBUTION
     for (let i = 0; i < particlesCount * 3; i += 3) {
-      // Spherical distribution for elegance
-      const radius = 5 + Math.random() * 5;
+      // Wider spherical distribution for better visibility
+      const radius = 8 + Math.random() * 10; // Increased radius for wider distribution
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.random() * Math.PI;
       
@@ -85,41 +85,43 @@ export default function UltraPremiumHero() {
       posArray[i+1] = radius * Math.sin(phi) * Math.sin(theta);
       posArray[i+2] = radius * Math.cos(phi);
       
-      // Varying sizes for dynamic feel
-      scaleArray[i/3] = Math.random() * 0.5 + 0.5;
+      // Increased sizes for better visibility
+      scaleArray[i/3] = Math.random() * 1.0 + 1.0; // Larger scale values
     }
     
     particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
     particlesGeometry.setAttribute('scale', new THREE.BufferAttribute(scaleArray, 1));
     
-    // Primary particles (red)
+    // Primary particles (red) - INCREASED SIZE AND BRIGHTNESS
     const primaryParticlesMaterial = new THREE.PointsMaterial({
-      size: isMobile ? 0.004 : 0.003,
+      size: isMobile ? 0.015 : 0.01, // Increased size significantly
       color: 0xff0a2d,
       transparent: true,
-      opacity: 0.7,
-      blending: THREE.AdditiveBlending
+      opacity: 0.9, // Increased opacity
+      blending: THREE.AdditiveBlending,
+      sizeAttenuation: true // Enables perspective (particles closer look bigger)
     });
     
-    // Secondary particles (gold accent)
+    // Secondary particles (gold accent) - INCREASED SIZE AND BRIGHTNESS
     const secondaryParticlesMaterial = new THREE.PointsMaterial({
-      size: isMobile ? 0.005 : 0.004,
+      size: isMobile ? 0.02 : 0.015, // Increased size significantly
       color: 0xdaa520, // Gold
       transparent: true,
-      opacity: 0.5,
-      blending: THREE.AdditiveBlending
+      opacity: 0.8, // Increased opacity
+      blending: THREE.AdditiveBlending,
+      sizeAttenuation: true // Enables perspective
     });
     
     // Create primary particle system
     const primaryParticlesMesh = new THREE.Points(particlesGeometry, primaryParticlesMaterial);
     scene.add(primaryParticlesMesh);
     
-    // Create secondary particle system with fewer particles
+    // Create secondary particle system WITH MORE PARTICLES
     const secondaryGeometry = new THREE.BufferGeometry();
-    const secondaryPosArray = new Float32Array(Math.floor(particlesCount * 0.2) * 3);
+    const secondaryPosArray = new Float32Array(Math.floor(particlesCount * 0.4) * 3); // Doubled the secondary particles
     
     for (let i = 0; i < secondaryPosArray.length; i += 3) {
-      const radius = 4 + Math.random() * 4;
+      const radius = 7 + Math.random() * 8; // Wider distribution
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.random() * Math.PI;
       
@@ -132,8 +134,8 @@ export default function UltraPremiumHero() {
     const secondaryParticlesMesh = new THREE.Points(secondaryGeometry, secondaryParticlesMaterial);
     scene.add(secondaryParticlesMesh);
     
-    // Position camera
-    camera.position.z = 3;
+    // Position camera FURTHER BACK for better field of view
+    camera.position.z = 10; // Moved camera back to see more particles
     
     // Handle resize
     const handleResize = () => {
@@ -144,20 +146,20 @@ export default function UltraPremiumHero() {
     
     window.addEventListener('resize', handleResize);
     
-    // Elegant mouse tracking for premium feel
+    // Elegant mouse tracking for premium feel - INCREASED SENSITIVITY
     let mouseX = 0;
     let mouseY = 0;
     let targetX = 0;
     let targetY = 0;
     
     const handleMouseMove = (event) => {
-      mouseX = (event.clientX - window.innerWidth / 2) * 0.0002;
-      mouseY = (event.clientY - window.innerHeight / 2) * 0.0002;
+      mouseX = (event.clientX - window.innerWidth / 2) * 0.0005; // Increased sensitivity
+      mouseY = (event.clientY - window.innerHeight / 2) * 0.0005; // Increased sensitivity
     };
     
     window.addEventListener('mousemove', handleMouseMove);
     
-    // Sophisticated animation loop
+    // Sophisticated animation loop with ENHANCED MOVEMENT
     const clock = new THREE.Clock();
     
     const animate = () => {
@@ -165,28 +167,36 @@ export default function UltraPremiumHero() {
       
       const elapsedTime = clock.getElapsedTime();
       
-      targetX = mouseX * 0.5;
-      targetY = mouseY * 0.5;
+      targetX = mouseX * 0.8; // Increased mouse influence
+      targetY = mouseY * 0.8; // Increased mouse influence
       
-      // Subtle breathing animation for particles
-      primaryParticlesMesh.rotation.x += 0.0001;
-      primaryParticlesMesh.rotation.y += 0.0002;
+      // MORE DYNAMIC movement for primary particles
+      primaryParticlesMesh.rotation.x += 0.0003; // Increased rotation speed
+      primaryParticlesMesh.rotation.y += 0.0005; // Increased rotation speed
       
-      secondaryParticlesMesh.rotation.y += 0.0003;
-      secondaryParticlesMesh.rotation.x -= 0.0001;
+      // MORE DYNAMIC movement for secondary particles
+      secondaryParticlesMesh.rotation.y += 0.0008; // Increased rotation speed
+      secondaryParticlesMesh.rotation.x -= 0.0004; // Increased rotation speed
       
-      // Elegant mouse interaction
-      primaryParticlesMesh.rotation.y += (targetX - primaryParticlesMesh.rotation.y) * 0.03;
-      primaryParticlesMesh.rotation.x += (targetY - primaryParticlesMesh.rotation.x) * 0.03;
+      // Elegant mouse interaction with FASTER RESPONSE
+      primaryParticlesMesh.rotation.y += (targetX - primaryParticlesMesh.rotation.y) * 0.05; // Faster response
+      primaryParticlesMesh.rotation.x += (targetY - primaryParticlesMesh.rotation.x) * 0.05; // Faster response
       
-      secondaryParticlesMesh.rotation.y += (targetX - secondaryParticlesMesh.rotation.y) * 0.05;
-      secondaryParticlesMesh.rotation.x += (targetY - secondaryParticlesMesh.rotation.x) * 0.05;
+      secondaryParticlesMesh.rotation.y += (targetX - secondaryParticlesMesh.rotation.y) * 0.08; // Faster response
+      secondaryParticlesMesh.rotation.x += (targetY - secondaryParticlesMesh.rotation.x) * 0.08; // Faster response
       
-      // Gentle pulsing for gold particles
+      // STRONGER pulsing for gold particles
       secondaryParticlesMesh.scale.set(
-        1 + Math.sin(elapsedTime * 0.5) * 0.1,
-        1 + Math.sin(elapsedTime * 0.5) * 0.1,
-        1 + Math.sin(elapsedTime * 0.5) * 0.1
+        1 + Math.sin(elapsedTime * 0.7) * 0.15, // Increased frequency and amplitude
+        1 + Math.sin(elapsedTime * 0.7) * 0.15,
+        1 + Math.sin(elapsedTime * 0.7) * 0.15
+      );
+      
+      // Add subtle pulsing to primary particles too
+      primaryParticlesMesh.scale.set(
+        1 + Math.sin(elapsedTime * 0.5) * 0.08,
+        1 + Math.sin(elapsedTime * 0.5) * 0.08,
+        1 + Math.sin(elapsedTime * 0.5) * 0.08
       );
       
       renderer.render(scene, camera);
@@ -229,12 +239,12 @@ export default function UltraPremiumHero() {
         className="absolute inset-0 w-full h-full z-0"
       />
       
-      {/* Rich overlay gradients */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-70 z-1"></div>
-      <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-50 z-1"></div>
+      {/* REDUCED overlay gradients to show particles better */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-50 z-1"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-30 z-1"></div>
       
       {/* Subtle gold accent line */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-yellow-500 to-transparent opacity-50"></div>
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-yellow-500 to-transparent opacity-70"></div>
       
       {/* Central content area - Adjusted for navbar */}
       <div className="container relative z-10 mx-auto px-6 lg:px-10 flex flex-col items-center justify-center text-center min-h-screen pt-24">
