@@ -13,7 +13,8 @@ import ScrollToTop from './components/ui/ScrollToTop';
 import LoadingScreen from './components/ui/LoadingScreen';
 import PremiumSkills from './components/Skills';
 import ExperienceSection from './components/Experience';
-
+import WhatsAppRobot from './components/WhatsAppRobot'; // Import the new robot component
+import FreelanceSection from './components/FreelanceSection';
 // Import Context - using the named export ThemeProvider from ThemeContext
 import { ThemeProvider } from './context/ThemeContext';
 
@@ -36,7 +37,6 @@ function App() {
           <LoadingScreen />
         ) : (
           <>
-           
             <Navbar />
             <Routes>
               <Route path="/" element={
@@ -45,14 +45,15 @@ function App() {
                   <Skills />
                   <PremiumSkills />
                   <Projects />
+                  <FreelanceSection/>
                   <ExperienceSection/>
                   <Services />
-              
                 </>
               } />
             </Routes>
             <Footer />
             <ScrollToTop />
+            <WhatsAppRobot /> {/* Add the WhatsApp robot component here */}
           </>
         )}
       </Router>
